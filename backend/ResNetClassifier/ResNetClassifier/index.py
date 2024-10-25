@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+mfrom flask import Flask, request, jsonify, send_file
 import bcrypt
 import mariadb
 import time
@@ -100,8 +100,8 @@ def registeranon():
         return jsonify({'message': f'Error: {err}'}), 500
 
 s3 = boto3.client('s3', 
-                  aws_access_key_id='AKIAXYKJT5UOFBCUVY2B', 
-                  aws_secret_access_key='NEFY2mfa3Hgl15gsPmLJzhqMKq/ETP+CwqfMrNj1', 
+                  aws_access_key_id='example', 
+                  aws_secret_access_key='example', 
                   region_name='eu-north-1')
 
 BUCKET_NAME = 'coup'
