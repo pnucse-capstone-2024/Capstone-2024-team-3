@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>NiiVue</title>
+    <link rel="stylesheet" href="niivue.css" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <body>
+    <noscript>
+      <strong>niivue requires JavaScript.</strong>
+    </noscript>
+    <main id="canvas-container">
+      <div style="display: flex; width: 100%; height: 100%;">
+        <canvas id="gl1"></canvas>
+      </div>
+    </main>
+    <script type="module" async>
+      import { Niivue } from "./niivue/index.ts";
+
+      let defaults = {
+        backColor: [0, 0, 0, 1], // background color
+        show3Dcrosshair: true, // show the crosshair
+        loglevel: 'debug', // log level for debugging
+        isRuler: true, // enable ruler
+      };
+
+      // Initialize Niivue with the defaults
+      var nv1 = new Niivue(defaults);
+      nv1.attachToCanvas(gl1);
+
+      // Define volumes with file paths
+      var volumeList = [
+        { url: "./aligned_mri.nii", colormap: "gray" },
+        { url: "./segmented_mri.nii", colormap: "warm"}
+      ];
+
+      // Debug: Check if the volume list contains valid URLs
+      console.log(volumeList);
+
+      // Try to load volumes and handle any errors
+      try {
+        await nv1.loadVolumes(volumeList);
+      } catch (error) {
+        console.error("Error loading volumes:", error);
+      }
+    </script>
+  </body>
+</html>
